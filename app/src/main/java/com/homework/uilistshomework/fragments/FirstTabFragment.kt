@@ -1,19 +1,25 @@
 package com.homework.uilistshomework.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.homework.uilistshomework.AnimalListViewModel
 import com.homework.uilistshomework.R
-import com.homework.uilistshomework.adapter.Adapter
+import com.homework.uilistshomework.adapter.AnimalDiffCallback
+import com.homework.uilistshomework.adapter.AnimalListAdapter
 import com.homework.uilistshomework.databinding.FragmentFirstTabBinding
-import com.homework.uilistshomework.util.AnimalUtil
 
-class FirstTabFragment : Fragment(R.layout.fragment_first_tab) {
+
+class FirstTabFragment : Fragment(R.layout.fragment_first_tab),
+    AnimalListAdapter.AnimalClickInterface {
 
     private lateinit var binding: FragmentFirstTabBinding
+    private lateinit var adapter: AnimalListAdapter
+    private lateinit var viewModel: AnimalListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,11 +32,25 @@ class FirstTabFragment : Fragment(R.layout.fragment_first_tab) {
     ): View {
         binding = FragmentFirstTabBinding.inflate(inflater, container, false)
         binding.recyclerViewTab1.layoutManager = LinearLayoutManager(context)
-        val adapter = Adapter()
+        adapter = AnimalListAdapter(AnimalDiffCallback(), this)
         binding.recyclerViewTab1.adapter = adapter
-        adapter.list = AnimalUtil.listOfCats
+
+        viewModel = ViewModelProvider(this).get(AnimalListViewModel::class.java)
+        viewModel.getAnimalList().observe(this, {
+            adapter.submitList(it)
+        })
 
         return binding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.recyclerViewTab1.adapter = null
+    }
+
+    override fun onDelete(position: Int) {
+        viewModel.deleteAnimal(position)
+    }
+
 }
+
