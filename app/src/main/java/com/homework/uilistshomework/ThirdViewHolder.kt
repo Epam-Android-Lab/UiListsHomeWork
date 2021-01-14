@@ -10,8 +10,11 @@ class ThirdViewHolder(private val binding: ItemTabFirstBinding) : BaseViewHolder
             ItemTabFirstBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
-    fun bind(item: Item.TypeThird) {
+    fun bind(item: Item, click: Adapter.Idelete, position: Int) {
         binding.itemText.setBackgroundResource(item.shape)
         binding.itemText.text = item.name
+        binding.deleteItem.setOnClickListener {
+            click.removeListItem(position)
+        }
     }
 }

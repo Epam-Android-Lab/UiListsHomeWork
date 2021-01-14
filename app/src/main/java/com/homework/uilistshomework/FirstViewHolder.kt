@@ -6,13 +6,16 @@ import com.homework.uilistshomework.databinding.ItemTabFirstBinding
 
 class FirstViewHolder(private val binding: ItemTabFirstBinding) : BaseViewHolder(binding.root) {
 
-    constructor(parent: ViewGroup): this (
+    constructor(parent: ViewGroup) : this(
             ItemTabFirstBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
-    fun bind(item: Item.TypeFirst) {
+    fun bind(item: Item, click: Adapter.Idelete, position: Int) {
         binding.itemText.setBackgroundResource(item.shape)
         binding.itemText.text = item.name
+        binding.deleteItem.setOnClickListener {
+            click.removeListItem(position)
+        }
     }
 
 }

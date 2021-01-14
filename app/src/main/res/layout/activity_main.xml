@@ -38,14 +38,12 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="tab1" />
+            android:text="tab1"/>
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="tab2" />
+            android:text="tab2"/>
 
     </com.google.android.material.tabs.TabLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

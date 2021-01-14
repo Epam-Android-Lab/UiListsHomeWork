@@ -11,8 +11,8 @@ object ItemsFactory {
             R.drawable.first_shape_type
     )
 
-    fun getItemListItemFirstTab(size: Int = 20): MutableList<Item.TypeFirst> {
-        val list: MutableList<Item.TypeFirst> = ArrayList()
+    fun getItemListItemFirstTab(size: Int = 20): MutableList<Item> {
+        val list: MutableList<Item> = ArrayList()
         for (i in 0 until size) list.add(Item.TypeFirst("Item $i", shape[2]))
         return list
     }

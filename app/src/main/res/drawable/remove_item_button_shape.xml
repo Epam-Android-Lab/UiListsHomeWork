@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="100dp"
+    android:width="100dp"
+    android:viewportHeight="100"
+    android:viewportWidth="100" >
+
+    <group
+        android:scaleX="1."
+        android:scaleY="1."
+        >
+        <path
+            android:name="cross"
+            android:strokeColor="@color/black"
+            android:strokeWidth="20"
+            android:strokeLineCap="round"
+            android:pathData="M 10,10 L 90,90 M 90,10 10,90" />
+    </group>
+</vector>

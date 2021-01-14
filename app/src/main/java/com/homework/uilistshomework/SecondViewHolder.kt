@@ -10,9 +10,11 @@ class SecondViewHolder(private val binding: ItemTabSecondBinding) : BaseViewHold
             ItemTabSecondBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
-    fun bind(item: Item.TypeSecond) {
-
+    fun bind(item: Item.TypeSecond, click: Adapter.Idelete, position: Int) {
         binding.itemText.setBackgroundResource(item.shape)
         binding.itemText.text = item.name
+        binding.deleteItem.setOnClickListener {
+            click.removeListItem(position)
+        }
     }
 }
