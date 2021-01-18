@@ -8,7 +8,7 @@ class Adapter : ListAdapter<Item, BaseViewHolder>(Item.Diff), IchangeList {
 
 
     override fun removeItemUpdate(item: Item) {
-        submitList(currentList.filter { it != item })
+        submitList(currentList.filter { it.name != item.name })
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {

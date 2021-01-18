@@ -15,17 +15,8 @@ class FirstViewHolder(private val binding: ItemTabFirstBinding,
     fun bind(item: Item) {
         binding.itemText.setBackgroundResource(item.shape)
         binding.itemText.text = item.name
-        addListener(item)
-    }
-
-    private var item: Item? = null
-
-    override fun addListener(item: Item) {
-        if (this.item == null) {
-            binding.deleteItem.setOnClickListener {
-                clickRemoveItem.removeItemUpdate(item)
-            }
-            this.item = item
+        binding.deleteItem.setOnClickListener {
+            clickRemoveItem.removeItemUpdate(item)
         }
     }
 }
