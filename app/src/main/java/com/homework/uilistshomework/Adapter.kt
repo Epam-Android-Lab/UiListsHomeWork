@@ -1,52 +1,38 @@
 package com.homework.uilistshomework
 
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 
-class Adapter(private val clickForRemove: Idelete) : ListAdapter<Item, BaseViewHolder>(Item.Diff) {
+class Adapter : ListAdapter<Item, BaseViewHolder>(Item.Diff), IchangeList {
 
-    var list: List<Item> = emptyList()
 
-    fun initList(new: List<Item>) {
-        list = new
-        notifyDataSetChanged()
-    }
-
-    fun changeList(newList: List<Item>) {
-        list = newList
-        notifyDataSetChanged()
-    }
-
-    fun removeOneItem(position: Int) {
-        val newList = list.toMutableList()
-        newList.removeAt(position)
-        list = newList.toList()
-        notifyItemRemoved(position)
-        notifyItemRangeChanged(position, newList.size)
+    override fun removeItemUpdate(item: Item) {
+        submitList(currentList.filter { it != item })
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
-            FIRST_TYPE -> FirstViewHolder(parent)
-            SECOND_TYPE -> SecondViewHolder(parent)
-            else -> ThirdViewHolder(parent)
+            FIRST_TYPE -> FirstViewHolder(parent, this)
+            SECOND_TYPE -> SecondViewHolder(parent,this)
+            else -> ThirdViewHolder(parent,this)
         }
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        when (val item = list[position]) {
-            is Item.TypeFirst -> (holder as FirstViewHolder).bind(item, clickForRemove, position)
-            is Item.TypeSecond -> (holder as SecondViewHolder).bind(item, clickForRemove, position)
-            is Item.TypeThird -> (holder as ThirdViewHolder).bind(item, clickForRemove, position)
+        when (val item = getItem(position)) {
+            is Item.TypeFirst -> (holder as FirstViewHolder).bind(item)
+            is Item.TypeSecond -> (holder as SecondViewHolder).bind(item)
+            is Item.TypeThird -> (holder as ThirdViewHolder).bind(item)
         }
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return currentList.size
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when (list[position]) {
+        return when (getItem(position)) {
             is Item.TypeFirst -> FIRST_TYPE
             is Item.TypeSecond -> SECOND_TYPE
             is Item.TypeThird -> THIRD_TYPE
@@ -57,9 +43,5 @@ class Adapter(private val clickForRemove: Idelete) : ListAdapter<Item, BaseViewH
         const val FIRST_TYPE = 1
         const val SECOND_TYPE = 2
         const val THIRD_TYPE = 3
-    }
-
-    interface Idelete {
-        fun removeListItem(position: Int)
     }
 }

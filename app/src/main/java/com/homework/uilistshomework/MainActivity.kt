@@ -6,9 +6,9 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.homework.uilistshomework.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(), Adapter.Idelete {
+class MainActivity : AppCompatActivity() {
 
-    private val adapter = Adapter(this)
+    private val adapter = Adapter()
     private var listFirst = ItemsFactory.getItemListItemFirstTab()
     private var listSecond = ItemsFactory.getItemListItemSecondTab()
 
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity(), Adapter.Idelete {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.recyclerView.adapter = adapter
-        adapter.initList(listFirst)
+        adapter.submitList(listFirst)
 
         binding.tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -39,13 +39,10 @@ class MainActivity : AppCompatActivity(), Adapter.Idelete {
 
     fun changeList(tab: String, newList: List<Item>) {
         when (tab) {
-            "tab1" -> listSecond = adapter.list.toMutableList()
-            "tab2" -> listFirst = adapter.list.toMutableList()
+            "tab1" -> listSecond = adapter.currentList.toMutableList()
+            "tab2" -> listFirst = adapter.currentList.toMutableList()
         }
-        adapter.changeList(newList)
+        adapter.submitList(newList)
     }
 
-    override fun removeListItem(position: Int) {
-        adapter.removeOneItem(position)
-    }
 }
