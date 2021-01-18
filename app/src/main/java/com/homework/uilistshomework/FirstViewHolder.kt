@@ -12,11 +12,15 @@ class FirstViewHolder(private val binding: ItemTabFirstBinding,
         clickRemoveItem
     )
 
+    init {
+        binding.deleteItem.setOnClickListener {
+            clickRemoveItem.removeItemUpdate(adapterPosition)
+        }
+    }
+
+
     fun bind(item: Item) {
         binding.itemText.setBackgroundResource(item.shape)
         binding.itemText.text = item.name
-        binding.deleteItem.setOnClickListener {
-            clickRemoveItem.removeItemUpdate(item)
-        }
     }
 }

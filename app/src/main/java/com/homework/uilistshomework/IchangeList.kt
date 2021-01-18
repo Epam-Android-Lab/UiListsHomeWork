@@ -1,5 +1,5 @@
 package com.homework.uilistshomework
 
 interface IchangeList {
-    fun removeItemUpdate(item: Item)
+    fun removeItemUpdate(position: Int)
 }

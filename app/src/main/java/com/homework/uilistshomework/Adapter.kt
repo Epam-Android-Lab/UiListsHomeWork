@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 class Adapter : ListAdapter<Item, BaseViewHolder>(Item.Diff), IchangeList {
 
 
-    override fun removeItemUpdate(item: Item) {
-        submitList(currentList.filter { it.name != item.name })
+    override fun removeItemUpdate(position: Int) {
+        submitList(currentList.filter { it != currentList[position]  })
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {

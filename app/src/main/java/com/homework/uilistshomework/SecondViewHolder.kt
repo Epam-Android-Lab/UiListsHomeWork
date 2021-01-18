@@ -13,11 +13,14 @@ class SecondViewHolder(private val binding: ItemTabSecondBinding,
         clickRemoveItem
     )
 
+    init {
+        binding.deleteItem.setOnClickListener {
+            clickRemoveItem.removeItemUpdate(adapterPosition)
+        }
+    }
+
     fun bind(item: Item) {
         binding.itemText.setBackgroundResource(item.shape)
         binding.itemText.text = item.name
-        binding.deleteItem.setOnClickListener {
-            clickRemoveItem.removeItemUpdate(item)
-        }
     }
 }
